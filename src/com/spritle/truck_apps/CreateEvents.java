@@ -58,7 +58,8 @@ public class CreateEvents extends WizardStep {
 	ArrayList<String> arrayList = new ArrayList<String>();
 	List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
 	String no_val = "No data found.";
-
+	CustomAdapter adapter;
+    public  ArrayList<EventModel> CustomListViewValuesArr = new ArrayList<EventModel>();
 	// You must have an empty constructor for every step
 	public CreateEvents() {
 	}
@@ -129,7 +130,8 @@ public class CreateEvents extends WizardStep {
 	public void onExit(int exitCode) {
 		switch (exitCode) {
 		case WizardStep.EXIT_NEXT:
-
+			ViewGroup parent1 = (ViewGroup) view.getParent();
+			parent1.removeView(view);
 			break;
 		case WizardStep.EXIT_PREVIOUS:
 
@@ -163,6 +165,8 @@ public class CreateEvents extends WizardStep {
 	 * Async task class to get json by making HTTP call
 	 * */
 	private class GetContacts extends AsyncTask<Void, Void, Void> {
+
+		private CustomAdapter adapter;
 
 		@Override
 		protected void onPreExecute() {
@@ -204,6 +208,14 @@ public class CreateEvents extends WizardStep {
 						hm.put("descp", descp);
 
 						arrayList.add(name);
+
+						final EventModel sched = new EventModel();
+
+						/******* Firstly take data in model object ******/
+						sched.setName(name);
+						sched.setDescription(descp);
+						/******** Take Model Object in ArrayList **********/
+						CustomListViewValuesArr.add(sched);
 						/*
 						 * HashMap<String, String> hm1 = new HashMap<String,
 						 * String>(); hm1.put("name", name); hm1.put("descp",
@@ -227,18 +239,21 @@ public class CreateEvents extends WizardStep {
 			// Dismiss the progress dialog
 			if (pDialog.isShowing())
 				pDialog.dismiss();
-			ArrayAdapter<String> adapter;
-			if (arrayList.size() > 0) {
-				adapter = new ArrayAdapter<String>(getActivity(),
-						android.R.layout.simple_list_item_1, arrayList);
-			} else {
+			// ArrayAdapter<String> adapter;
+			// if (arrayList.size() > 0) {
+			// adapter = new ArrayAdapter<String>(getActivity(),
+			// android.R.layout.simple_list_item_1, arrayList);
+			// } else {
+			//
+			// arrayList.add(no_val);
+			// adapter = new ArrayAdapter<String>(getActivity(),
+			// android.R.layout.simple_list_item_1, arrayList);
+			//
+			// eventsListView.setAdapter(adapter);
+			// }
+			// eventsListView.setAdapter(adapter);
 
-				arrayList.add(no_val);
-				adapter = new ArrayAdapter<String>(getActivity(),
-						android.R.layout.simple_list_item_1, arrayList);
-
-				eventsListView.setAdapter(adapter);
-			}
+			adapter = new CustomAdapter(getActivity(),CustomListViewValuesArr);
 			eventsListView.setAdapter(adapter);
 			return;
 
