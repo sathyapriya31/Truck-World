@@ -41,10 +41,10 @@ public class EventsWizard extends BasicWizardLayout {
 		 * setFinishButtonLabel("Finalize");
 		 */
 
-		 // to create the wizard flow.
-		WizardFlow droid= new WizardFlow.Builder().addStep(EventsList.class)
+		// to create the wizard flow.
+		WizardFlow droid = new WizardFlow.Builder().addStep(EventsList.class)
 				.addStep(CreateEvents.class).create();
-		 return droid;
+		return droid;
 	}
-	
+
 }

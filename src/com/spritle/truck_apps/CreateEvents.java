@@ -59,7 +59,8 @@ public class CreateEvents extends WizardStep {
 	List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
 	String no_val = "No data found.";
 	CustomAdapter adapter;
-    public  ArrayList<EventModel> CustomListViewValuesArr = new ArrayList<EventModel>();
+	public ArrayList<EventModel> CustomListViewValuesArr = new ArrayList<EventModel>();
+
 	// You must have an empty constructor for every step
 	public CreateEvents() {
 	}
@@ -239,22 +240,20 @@ public class CreateEvents extends WizardStep {
 			// Dismiss the progress dialog
 			if (pDialog.isShowing())
 				pDialog.dismiss();
-			// ArrayAdapter<String> adapter;
-			// if (arrayList.size() > 0) {
-			// adapter = new ArrayAdapter<String>(getActivity(),
-			// android.R.layout.simple_list_item_1, arrayList);
-			// } else {
-			//
-			// arrayList.add(no_val);
-			// adapter = new ArrayAdapter<String>(getActivity(),
-			// android.R.layout.simple_list_item_1, arrayList);
-			//
-			// eventsListView.setAdapter(adapter);
-			// }
-			// eventsListView.setAdapter(adapter);
 
-			adapter = new CustomAdapter(getActivity(),CustomListViewValuesArr);
-			eventsListView.setAdapter(adapter);
+			if (CustomListViewValuesArr.size() > 0) {
+				adapter = new CustomAdapter(getActivity(),
+						CustomListViewValuesArr);
+				eventsListView.setAdapter(adapter);
+			} else {
+
+				arrayList.add(no_val);
+				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+						getActivity(), android.R.layout.simple_list_item_1,
+						arrayList);
+
+				eventsListView.setAdapter(adapter);
+			}
 			return;
 
 		}

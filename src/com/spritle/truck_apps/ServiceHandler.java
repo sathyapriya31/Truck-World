@@ -35,7 +35,6 @@ public class ServiceHandler {
 	JSONArray jArray = null;
 
 	public ServiceHandler() {
-
 	}
 
 	/**
@@ -45,7 +44,7 @@ public class ServiceHandler {
 	 * @method - http request method
 	 * */
 	public String makeServiceCall(String url, int method) {
-		return this.makeServiceCall(url, method, null,null,null);
+		return this.makeServiceCall(url, method, null, null, null);
 	}
 
 	/**
@@ -56,10 +55,9 @@ public class ServiceHandler {
 	 * @params - http request params
 	 * */
 	public String makeServiceCall(String url, int method,
-			List<NameValuePair> params,String name1,String role1) {
+			List<NameValuePair> params, String name1, String role1) {
 		try {
 
-			
 			// http client
 			DefaultHttpClient httpClient = new DefaultHttpClient();
 			HttpEntity httpEntity = null;
@@ -68,35 +66,37 @@ public class ServiceHandler {
 			// Checking http request method type
 			if (method == POST) {
 
-				JSONObject jsonobj; // declared locally so that it destroys after
+				JSONObject jsonobj; // declared locally so that it destroys
+									// after
 									// serving its purpose
 				jsonobj = new JSONObject();
-				
+
 				try {
-					
+
 					// lets add some headers (nested JSON object)
 					JSONObject header = new JSONObject();
-					header.put("name",name1); 
-					header.put("role",role1 ); 			
+					header.put("name", name1);
+					header.put("role", role1);
 					jsonobj.put("developer", header);
 					// Display the contents of the JSON objects
-					
+
 				} catch (JSONException ex) {
-				
+
 					ex.printStackTrace();
 				}
-				
+
 				HttpPost httpPost = new HttpPost(url);
 
-				/*httpPost.setHeader("Content-type", "application/json");
-				// adding post params
-				if (params != null) {
-					httpPost.setEntity(new UrlEncodedFormEntity(params));
-				}*/
+				/*
+				 * httpPost.setHeader("Content-type", "application/json"); //
+				 * adding post params if (params != null) {
+				 * httpPost.setEntity(new UrlEncodedFormEntity(params)); }
+				 */
 				Log.d("jsonogi--", jsonobj.toString());
 				StringEntity se = new StringEntity(jsonobj.toString());
 				se.setContentType("application/json;charset=UTF-8");
-				se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
+				se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE,
+						"application/json;charset=UTF-8"));
 				httpPost.setEntity(se);
 
 				httpResponse = httpClient.execute(httpPost);

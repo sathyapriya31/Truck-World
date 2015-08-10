@@ -58,25 +58,25 @@ public class EventsList extends WizardStep {
 			@Override
 			public void onItemClick(AdapterView arg0, View view, int position,
 					long itemId) {
-				listdata=(String)arg0.getItemAtPosition(position);
+				listdata = (String) arg0.getItemAtPosition(position);
 
 			}
 		});
 
 		return v;
 	}
+
 	@Override
 	public void onExit(int exitCode) {
 		switch (exitCode) {
 		case WizardStep.EXIT_NEXT:
-			
+
 			break;
 		case WizardStep.EXIT_PREVIOUS:
 			// Do nothing...
 			break;
-	
+
 		}
 	}
 
-	
 }

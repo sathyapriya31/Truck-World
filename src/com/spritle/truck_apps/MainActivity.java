@@ -18,6 +18,6 @@ public class MainActivity extends FragmentActivity {
 
 		android.app.ActionBar bar = getActionBar();
 		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#607d8b")));
-		
+
 	}
 }
